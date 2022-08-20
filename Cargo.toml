@@ -2,10 +2,20 @@
 name = "superbit-board"
 version = "0.1.0"
 edition = "2021"
-license = "MIT"
+license = "APACHE-2.0 OR MIT"
+authors = ["Darrik Moberg <30670444+mdarrik@users.noreply.github.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-embedded-hal = "0.2.7"
+embedded-hal = { version = "0.2.7", features = ["unproven"] }
+nrf-hal-common = "0.15.1"
 pwm-pca9685 = "0.3.1"
+
+[features]
+default = ["nrf-52833"]
+nrf-52810 = ["nrf-hal-common/52810"]
+nrf-52811 = ["nrf-hal-common/52811"]
+nrf-52832 = ["nrf-hal-common/52832"]
+nrf-52833 = ["nrf-hal-common/52833"]
+nrf-52840 = ["nrf-hal-common/52840"]
