@@ -38,30 +38,30 @@ where
 
     ///Drive a motor specified by [`MotorPosition`] at the speed specified by `speed`, in either forward or reverse direction, as defined by [`MotorDirection`]
     pub fn drive_motor(
-        self: &mut Self,
+        &mut self,
         motor: MotorPosition,
         speed: u8,
         direction: MotorDirection,
     ) -> Result<(), Error<Pca9685Error<E>>> {
         self.pca_9685
             .drive_motor(motor, speed, direction)
-            .map_err(|e| Error::Pca9685(e))
+            .map_err(Error::Pca9685)
     }
     ///Move a 270 degree servo at position defined by [`ServoPosition`].
     /// Note that degrees is constrained between 0 & 270, an will round down to 270 if > 270;
     pub fn move_270_servo(
-        self: &mut Self,
+        &mut self,
         servo_pos: ServoPosition,
         degrees: u16,
     ) -> Result<(), Error<Pca9685Error<E>>> {
         self.pca_9685
             .move_270_servo(servo_pos, degrees)
-            .map_err(|e| Error::Pca9685(e))
+            .map_err(Error::Pca9685)
     }
     /// Prepares a single neopixel LED at position [`NeopixelPosition`] to be the RGB color defined.
     /// Note that you need to call `neopixel_show` for the color change to show.
     pub fn set_neopixel_color(
-        self: &mut Self,
+        &mut self,
         neopixel_position: NeopixelPosition,
         color: RgbColor,
     ) -> Result<(), Error<E>> {
@@ -69,13 +69,13 @@ where
     }
     /// Prepares all 4 neopixel LEDs to be set to a single RGB color.
     /// Note that you'll need to call `neopixel_show` for the change to show.
-    pub fn set_all_neopixel_colors(self: &mut Self, color: RgbColor) -> Result<(), Error<E>> {
+    pub fn set_all_neopixel_colors(&mut self, color: RgbColor) -> Result<(), Error<E>> {
         self.neopixel.set_all_neopixels(color)
     }
     /// prepares to turn off the specified neopixel by setting the color to 0,0,0
     /// note that you'll need to call `neopixel_show` for this change to take effect.
     pub fn turn_off_neopixel(
-        self: &mut Self,
+        &mut self,
         neopixel_position: NeopixelPosition,
     ) -> Result<(), Error<E>> {
         self.set_neopixel_color(neopixel_position, RgbColor { r: 0, g: 0, b: 0 })
@@ -83,11 +83,11 @@ where
 
     /// Transmits the pixel data to the neopixels
     /// Since we're using a pwm peripheral and DMA access, this shouldn't require all of the processing power like bit banging does.
-    pub fn neopixel_show(self: &mut Self) -> Result<(), Error<nrf_hal_common::pwm::Error>> {
+    pub fn neopixel_show(&mut self) -> Result<(), Error<nrf_hal_common::pwm::Error>> {
         self.neopixel.show()
     }
 
-    pub fn get_current_colors(self: &Self) -> [RgbColor; 4] {
+    pub fn get_current_colors(&self) -> [RgbColor; 4] {
         self.neopixel.get_current_colors()
     }
 }

@@ -27,7 +27,7 @@ where
 
     /// Moves a 270 degree servo at [`ServoPosition`] the number of degrees specified by [`degrees`]. Note that [`degrees`] must be in 0..=270;
     pub fn move_270_servo(
-        self: &mut Self,
+        &mut self,
         servo_pos: ServoPosition,
         degrees: u16,
     ) -> Result<(), Error<E>> {
@@ -53,7 +53,7 @@ where
     }
     /// drive a motor at [`MotorPosition`] at the speed set by `speed`.
     pub fn drive_motor(
-        self: &mut Self,
+        &mut self,
         motor: MotorPosition,
         speed: u8,
         direction: MotorDirection,
@@ -113,7 +113,7 @@ pub enum ServoPosition {
 }
 impl ServoPosition {
     /// Returns the channel for the servo of this [`ServoPosition`].
-    fn get_board_channel(self: &Self) -> Channel {
+    fn get_board_channel(&self) -> Channel {
         match self {
             ServoPosition::S1 => Channel::C0,
             ServoPosition::S2 => Channel::C1,
@@ -134,7 +134,7 @@ pub enum MotorPosition {
     M4,
 }
 impl MotorPosition {
-    pub fn get_board_channels(self: &Self) -> (Channel, Channel) {
+    pub fn get_board_channels(&self) -> (Channel, Channel) {
         match self {
             MotorPosition::M1 => (Channel::C8, Channel::C9),
             MotorPosition::M2 => (Channel::C10, Channel::C11),

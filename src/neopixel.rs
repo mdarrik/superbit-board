@@ -28,7 +28,7 @@ where
         }
     }
 
-    pub fn show(self: &mut Self) -> Result<(), Error<nrf_hal_common::pwm::Error>> {
+    pub fn show(&mut self) -> Result<(), Error<nrf_hal_common::pwm::Error>> {
         self.set_color_buffer();
         if let Some(pwm) = self.pwm.take() {
             pwm.set_counter_mode(CounterMode::Up);
@@ -50,7 +50,7 @@ where
         }
     }
 
-    fn set_color_buffer(self: &mut Self) {
+    fn set_color_buffer(&mut self) {
         let mut pos = 0usize;
         if let Some(pixel_buffer) = self.pixel_buffer.take() {
             for n in 0..12usize {
@@ -67,14 +67,14 @@ where
                 }
             }
             // signal that the instructions are done with 2 0 codes
-            pixel_buffer[pos] = 0 | (0x8000);
+            pixel_buffer[pos] = 0x8000;
             pos += 1;
-            pixel_buffer[pos] = 0 | (0x8000);
+            pixel_buffer[pos] = 0x8000;
         }
     }
 
     pub fn set_neopixel_color<E: core::fmt::Debug>(
-        self: &mut Self,
+        &mut self,
         light_position: NeopixelPosition,
         color: RgbColor,
     ) -> Result<(), Error<E>> {
@@ -85,7 +85,7 @@ where
     }
 
     pub fn set_all_neopixels<E: core::fmt::Debug>(
-        self: &mut Self,
+        &mut self,
         color: RgbColor,
     ) -> Result<(), Error<E>> {
         for light_position in [
@@ -100,7 +100,7 @@ where
         Ok(())
     }
 
-    pub fn get_current_colors(self: &Self) -> [RgbColor; 4] {
+    pub fn get_current_colors(&self) -> [RgbColor; 4] {
         let mut current_colors = [RgbColor::default(); 4];
         for (index, color) in self.neopixel_color_bits.chunks(3).enumerate() {
             if let [g, r, b] = *color {
