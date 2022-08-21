@@ -93,7 +93,6 @@ where
             NeopixelPosition::Pixel1,
             NeopixelPosition::Pixel2,
             NeopixelPosition::Pixel3,
-            NeopixelPosition::Pixel4,
         ] {
             self.set_neopixel_color(light_position, color)?;
         }
@@ -125,5 +124,4 @@ pub enum NeopixelPosition {
     Pixel1 = 1,
     Pixel2 = 2,
     Pixel3 = 3,
-    Pixel4 = 4,
 }
