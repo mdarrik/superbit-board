@@ -18,6 +18,7 @@ pub use pwm_pca9685::Error as Pca9685Error;
 /// Struct for controlling the Superbit board.
 /// Construct with new() and then can use the various methods to control servos, motors, and the neopixel leds.
 #[non_exhaustive]
+#[derive(Debug)]
 pub struct SuperBit<I2C, T: Instance> {
     pca_9685: Pca9685<I2C>,
     neopixel: Neopixel<T>,
@@ -47,6 +48,11 @@ where
             .drive_motor(motor, speed, direction)
             .map_err(Error::Pca9685)
     }
+
+    pub fn stop_motor(&mut self, motor: MotorPosition) -> Result<(), Error<Pca9685Error<E>>> {
+        self.drive_motor(motor, 0, MotorDirection::Forward)
+    }
+
     ///Move a 270 degree servo at position defined by [`ServoPosition`].
     /// Note that degrees is constrained between 0 & 270, an will round down to 270 if > 270;
     pub fn move_270_servo(

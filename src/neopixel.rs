@@ -8,6 +8,7 @@ static mut PIXEL_BUFFER: [u16; PIXEL_BUFFER_BIT_COUNT] = [0; PIXEL_BUFFER_BIT_CO
 const PIXEL_T0H: u16 = 32774;
 const PIXEL_T1H: u16 = 32781;
 #[non_exhaustive]
+#[derive(Debug)]
 pub struct Neopixel<T: Instance> {
     pwm: Option<Pwm<T>>,
     pixel_buffer: Option<&'static mut [u16; PIXEL_BUFFER_BIT_COUNT]>,
@@ -52,7 +53,7 @@ where
 
     fn set_color_buffer(&mut self) {
         let mut pos = 0usize;
-        if let Some(pixel_buffer) = self.pixel_buffer.take() {
+        if let Some(pixel_buffer) = self.pixel_buffer.as_mut() {
             for n in 0..12usize {
                 let pix: u8 = self.neopixel_color_bits[n];
                 let mut mask: u8 = 0x80;

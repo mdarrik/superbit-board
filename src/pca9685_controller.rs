@@ -9,6 +9,8 @@ const SUPERBIT_PCA9685_ADDRESS: u8 = 0x40;
 const SUPERBIT_PCA_PRESCALE: u8 = 121; // this corresponds to 50hz which is the frequency of the superbit servos
 
 ///Struct for
+#[non_exhaustive]
+#[derive(Debug)]
 pub struct Pca9685<I2C> {
     pca_board: pwmPca9685<I2C>,
 }
