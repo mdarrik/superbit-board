@@ -1,6 +1,6 @@
 [package]
 name = "superbit-board"
-version = "0.1.1"
+version = "0.2.1"
 edition = "2021"
 license = "APACHE-2.0 OR MIT"
 authors = ["Darrik Moberg <30670444+mdarrik@users.noreply.github.com>"]

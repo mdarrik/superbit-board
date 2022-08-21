@@ -87,6 +87,12 @@ where
         self.set_neopixel_color(neopixel_position, RgbColor { r: 0, g: 0, b: 0 })
     }
 
+    /// prepares to turn off all neopixels by setting the color to 0,0,0
+    /// note that you'll need to call `neopixel_show` for this change to take effect.
+    pub fn turn_off_all_neopixels(&mut self) -> Result<(), Error<E>> {
+        self.set_all_neopixel_colors(RgbColor { r: 0, g: 0, b: 0 })
+    }
+
     /// Transmits the pixel data to the neopixels
     /// Since we're using a pwm peripheral and DMA access, this shouldn't require all of the processing power like bit banging does.
     pub fn neopixel_show(&mut self) -> Result<(), Error<nrf_hal_common::pwm::Error>> {
